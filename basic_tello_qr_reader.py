@@ -17,10 +17,12 @@ while True:
     # Get frame by frame from drone
     img = maverick.get_frame_read().frame
 
-    #
+    # Get QR code data
     data, bbox, straight_qrcode = detector.detectAndDecode(img)
     if len(data) > 0:
         print(data)
+
+    # Display in video feed
     img = cv2.resize(img, (360, 240))
     cv2.imshow("results", img)
     cv2.waitKey(1)
@@ -28,9 +30,7 @@ while True:
     # Capture the video frame by frame
     ret, frame = vid.read()
 
-    # the 'q' button is set as the
-    # quitting button you may use any
-    # desired button of your choice
+    # Quit the program using 'q'
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
