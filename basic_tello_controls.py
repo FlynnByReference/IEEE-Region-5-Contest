@@ -6,7 +6,6 @@ from djitellopy import tello
 display = pygame.display.set_mode((10, 10))
 maverick = tello.Tello()
 maverick.connect()
-# \\\maverick.turn_motor_on()
 print(maverick.get_battery())
 
 # creating a running loop
@@ -22,16 +21,16 @@ while True:
         # checking if keydown event happened or not
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:
-                maverick.move("back", 20)
+                maverick.move("back", 50)
                 print("s")
             if event.key == pygame.K_a:
-                maverick.move("left", 20)
+                maverick.move("left", 25)
                 print("a")
             if event.key == pygame.K_w:
-                maverick.move("forward", 20)
+                maverick.move("forward", 100)
                 print("s")
             if event.key == pygame.K_d:
-                maverick.move("right", 20)
+                maverick.move("right", 25)
                 print("a")
             if event.key == pygame.K_UP:
                 maverick.takeoff()

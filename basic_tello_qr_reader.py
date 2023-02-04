@@ -9,7 +9,6 @@ print(maverick.get_battery())
 maverick.streamon()
 
 # Video define and captrue
-vid = cv2.VideoCapture(0)
 detector = cv2.QRCodeDetector()
 
 
@@ -27,13 +26,9 @@ while True:
     cv2.imshow("results", img)
     cv2.waitKey(1)
 
-    # Capture the video frame by frame
-    ret, frame = vid.read()
-
     # Quit the program using 'q'
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 # Close video recording after done
-vid.release()
 cv2.destroyAllWindows()
