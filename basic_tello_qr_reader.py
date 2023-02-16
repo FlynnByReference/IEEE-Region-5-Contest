@@ -12,10 +12,32 @@ maverick.streamon()
 vid = cv2.VideoCapture(0)
 detector = cv2.QRCodeDetector()
 
+frame_width = int(vid.get(3))
+frame_height = int(vid.get(4))
+
+size = (frame_width, frame_height)
+
+result = cv2.VideoWriter('droneVid.mp4',
+                         cv2.VideoWriter_fourcc(*'MJPG'),
+                         10, size)
+
+maverick.takeoff()
 
 while True:
     # Get frame by frame from drone
     img = maverick.get_frame_read().frame
+
+    ret, frame = vid.read()
+
+    if ret == True:
+        result.write(img)
+        cv2.imshow('Frame', img)
+
+        if cv2.waitKey(1) & 0xFF == ord('s'):
+            break
+
+    else:
+        break
 
     # Get QR code data
     data, bbox, straight_qrcode = detector.detectAndDecode(img)
@@ -30,10 +52,13 @@ while True:
     # Capture the video frame by frame
     ret, frame = vid.read()
 
+    maverick.move_forward(40)
+
     # Quit the program using 'q'
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 # Close video recording after done
 vid.release()
+result.release()
 cv2.destroyAllWindows()
