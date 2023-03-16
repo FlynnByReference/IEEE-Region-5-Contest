@@ -14,7 +14,8 @@ print("[INFO] Camera ready.")
 
 # download model from: https://github.com/opencv/opencv/wiki/TensorFlow-Object-Detection-API#run-network-in-opencv
 print("[INFO] Loading model...")
-PATH_TO_CKPT = "frozen_inference_graph.pb"
+# PATH_TO_CKPT = "frozen_inference_graph.pb"
+PATH_TO_CKPT = "keras_model.h5"
 
 # Load the Tensorflow model into memory.
 detection_graph = tf.Graph()
@@ -22,6 +23,7 @@ with detection_graph.as_default():
     od_graph_def = tf.compat.v1.GraphDef()
     with tf.compat.v1.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
         serialized_graph = fid.read()
+
         od_graph_def.ParseFromString(serialized_graph)
         tf.compat.v1.import_graph_def(od_graph_def, name='')
     sess = tf.compat.v1.Session(graph=detection_graph)
