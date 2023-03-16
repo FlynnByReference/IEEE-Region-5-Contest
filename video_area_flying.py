@@ -25,17 +25,23 @@ def recordVid():
 
 record = Thread(target=recordVid)
 record.start()
+print(drone.get_battery())
 
 drone.takeoff()
-drone.move_right(50)
-drone.rotate_counter_clockwise(90)
-drone.move_right(200)
-drone.rotate_counter_clockwise(90)
-drone.move_right(100)
-drone.rotate_counter_clockwise(90)
-drone.move_right(200)
-drone.rotate_counter_clockwise(90)
-drone.move_right(50)
+
+# drone.move_right(50)
+# drone.rotate_counter_clockwise(90)
+# drone.move_right(200)
+# drone.rotate_counter_clockwise(90)
+# drone.move_right(100)
+# drone.rotate_counter_clockwise(90)
+# drone.move_right(200)
+# drone.rotate_counter_clockwise(90)
+# drone.move_right(50)
+
+drone.move_forward(50)
+drone.flip_forward()
+drone.move_back(100)
 
 drone.land()
 drone.streamoff()

@@ -19,6 +19,8 @@ while True:
     # Grab the webcamera's image.
     ret, image = camera.read()
 
+    (h, w) = image.shape[:2]
+
     # Resize the raw image into (224-height,224-width) pixels
     image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_AREA)
 
@@ -31,11 +33,23 @@ while True:
     # Normalize the image array
     image = (image / 127.5) - 1
 
+
+    # (startX, startY) = temp
+    # startX = int(startX * w)
+    # startY = int(startY * h)
+    # endX = int(endX * w)
+    # endY = int(endY * h)
+
+    # image = cv2.rectangle(image, (startX, startY), (startX+100, startY+100), (255, 0, 0), 2)
+
     # Predicts the model
     prediction = model.predict(image)
+    print(prediction)
     index = np.argmax(prediction)
+    print(index)
     class_name = class_names[index]
     confidence_score = prediction[0][index]
+
 
     # Print prediction and confidence score
     print("Class:", class_name[2:], end="")
