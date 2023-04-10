@@ -1,6 +1,7 @@
 from djitellopy import tello
 import cv2
 from threading import Thread
+from image_transformer import ImageTransformer
 import time
 
 # Connect to drone start stream and print battery
@@ -21,8 +22,12 @@ def flyQRRead():
         # Get frame by frame from drone
         img = drone.get_frame_read().frame
 
+        # Instantiate the image transformer class
+        it = ImageTransformer(img)
+        rotated_img = it.rotate_along_axis(gamma=45)
+
         # Get QR code data
-        data, bbox, straight_qrcode = detector.detectAndDecode(img)
+        data, bbox, straight_qrcode = detector.detectAndDecode(rotated_img)
         if len(data) > 0:
             print(data)
 
@@ -35,9 +40,9 @@ record.start()
 drone.takeoff()
 
 # Move and flip for QR
-drone.move_right(50)
+# drone.move_right(50)
 drone.flip_forward()
-drone.move_forward(40)
+drone.move_forward(50)
 
 # Land drone
 drone.land()
