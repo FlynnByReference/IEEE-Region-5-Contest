@@ -29,7 +29,7 @@ class ImageTransformer(object):
     """ Perspective transformation class for image
         with shape (height, width, #channels) """
 
-    def __init__(self, image, shape):
+    def __init__(self, image):
         self.image = image
  
         self.height = self.image.shape[0]
