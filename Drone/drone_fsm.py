@@ -1,9 +1,7 @@
-##########################################################################################
-#    Title: Finite State Machine in Python
-#    Author: Bernd Klein
-#    Date: February 1, 2022
-#    Availability: https://python-course.eu/applications-python/finite-state-machine.php
-##########################################################################################
+from drone_class import DroneClass
+from djitellopy import tello
+import cv2  # Install opencv-python
+
 
 class StateMachine:
 
@@ -42,6 +40,11 @@ def idle_transitions():
     #   new_state = "takeoff_state"
     # else
     #   new_state = "error_state"
+
+    # this will keep drone off to not waste resources
+    drone.turn_motor_off()
+    drone.streamoff()
+
     return (new_state)
 
 def takeoff_transitions():
@@ -76,8 +79,42 @@ def scan_qr_code_transitions():
     #   new_state = "rotate_to_bot"
     # else
     #   new_state = "error_state"
+
+    # This code will be added to the correct spot in this function
+    # Turn on the drone camera
+    drone.streamon()
+
+    # Video define and captrue
+    detector = cv2.QRCodeDetector()
+
+    while True:
+        # Get frame by frame from drone
+        img = drone.get_frame_read().frame
+
+        # Get QR code data
+        data, bbox, straight_qrcode = detector.detectAndDecode(img)
+        if len(data) > 0:
+            print(data)
+
+            # Turn off the drone camera
+            drone.streamoff()
+            break
+
+        # probably don't need this
+        # Display in video feed
+        # img = cv2.resize(img, (360, 240))
+        # cv2.imshow("results", img)
+        # cv2.waitKey(1)
+
+
+    # Close video recording after done
+    cv2.destroyAllWindows()
+
+
     return(new_state)
 
+
+# Probably change this to fly over box
 def rotate_to_bot_transitions():
     # if looking for box
     #   new_state = "rotate_to_box"
@@ -87,6 +124,8 @@ def rotate_to_bot_transitions():
     #   new_state = "error_state"
     return(new_state)
 
+
+# Probably will remove this
 def fly_to_bot_transitions():
     # if going to land
     #   new_state = "land"
@@ -99,8 +138,18 @@ def land_transitions():
     # new_state = "idle"
     # else
     #   new_state = "error_state"
+
+    # Really only functionality we need
+    drone.land()
     return(new_state)
 
+
+# Drone initializer
+drone = tello.Tello()
+drone.connect()
+
+
+# Code to add states
 m = StateMachine()
 m.add_state("idle", idle_transitions())
 m.add_state("takeoff", takeoff_transitions())
