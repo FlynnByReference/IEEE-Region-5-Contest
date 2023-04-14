@@ -11,8 +11,7 @@ np.set_printoptions(suppress=True)
 model = load_model("keras_model.h5", compile=False)
 # Load the labels
 class_names = open("labels.txt", "r").readlines()
-# CAMERA can be 0 or 1 based on default camera of your computer
-# camera = cv2.VideoCapture(0)
+
 #################################################################
 
 # Configure depth and color streams
@@ -21,7 +20,7 @@ config = rs.config()
 config.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)
 
 print("[INFO] Starting streaming...")
-pipeline.start(config)
+pipeline.start()
 print("[INFO] Camera ready.")
 
 while True:
@@ -47,9 +46,19 @@ while True:
     class_name = class_names[index]
     confidence_score = prediction[0][index]
 
+    frames = pipeline.wait_for_frames()
+    depth = frames.get_depth_frame()
+
+    width = depth.get_width()
+    height = depth.get_height()
+
+    dist = depth.get_distance(int(width / 2), int(height / 2))
+
+
     # Print prediction and confidence score
     print("Class:", class_name[2:], end="")
     print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
+    print("Distance: ", dist)
     #################################################################
 
     # Listen to the keyboard for presses.
