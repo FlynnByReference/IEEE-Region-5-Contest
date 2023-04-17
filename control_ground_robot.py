@@ -1,0 +1,31 @@
+import odrive
+import time
+
+import Jetson.GPIO as GPIO
+##GPIO.cleanup()
+testPin = 11
+
+GPIO.setmode(GPIO.BOARD)
+
+tempVal = None
+GPIO.setup(testPin, GPIO.IN)
+odrv0 = odrive.find_any()
+odrv0.axis0.controller.input_vel = 20
+time.sleep(5)
+odrv0.axis0.controller.input_vel = 0
+
+
+loopVal = True
+while loopVal:
+	pinValue = GPIO.input(testPin)
+	if pinValue == GPIO.HIGH:
+		odrv0.axis0.controller.input_vel = 20
+		odrv0.axis1.controller.input_vel = -20
+
+		time.sleep(5)
+
+		odrv0.axis0.controller.input_vel = 0
+		odrv0.axis1.controller.input_vel = 0
+		time.sleep(5)
+
+GPIO.cleanup()
