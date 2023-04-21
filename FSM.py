@@ -109,8 +109,8 @@ def find_box(count):
 
 def launch_drone(count):
     #launch drone and try to read a qr then land
-    #with open("top_level_drone.py") as f:
-    #    exec(f.read())
+    with open("top_level_drone.py") as f:
+        exec(f.read())
     if count == 7:
         newState = "Drive_state1"
     #else rotate 60 degs and search for box again
