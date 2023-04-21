@@ -2,6 +2,7 @@ from keras.models import load_model  # TensorFlow is required for Keras to work
 import cv2  # Install opencv-python
 import numpy as np
 from djitellopy import tello
+from image_transformer import ImageTransformer
 
 class DroneClass:
     def __init__(self):
@@ -13,30 +14,48 @@ class DroneClass:
         maverick.connect()
         print(maverick.get_battery())
         maverick.streamon()
+        maverick.takeoff()
+        maverick.move_down(30)
 
         # Video define and captrue
         detector = cv2.QRCodeDetector()
+
+        QRdata = "A"
+
+        count = 1
 
         while True:
             # Get frame by frame from drone
             img = maverick.get_frame_read().frame
 
+            # Instantiate the image transformer class
+            it = ImageTransformer(img)
+            rotated_img = it.rotate_along_axis(theta=60)
+            rotated_img = cv2.resize(rotated_img, (360, 1000))
+
             # Get QR code data
-            data, bbox, straight_qrcode = detector.detectAndDecode(img)
+            data, bbox, straight_qrcode = detector.detectAndDecode(rotated_img)
             if len(data) > 0:
                 print(data)
+                QRdata = data
+                # maverick.move_forward(80)
 
             # Display in video feed
-            img = cv2.resize(img, (360, 240))
-            cv2.imshow("results", img)
+            cv2.imshow("results", rotated_img)
             cv2.waitKey(1)
 
             # Quit the program using 'q'
-            if cv2.waitKey(1) & 0xFF == ord('q'):
+            if cv2.waitKey(1) & 0xFF == ord('q') or count == 100:
                 break
+
+            count = count + 1
+
+        maverick.land()
 
         # Close video recording after done
         cv2.destroyAllWindows()
+
+        return QRdata
 
     def flyToBox(self):
         ################ Pre-made code from Training #####################

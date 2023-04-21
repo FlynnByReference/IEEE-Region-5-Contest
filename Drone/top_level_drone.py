@@ -2,4 +2,8 @@ from drone_class import DroneClass
 
 test = DroneClass()
 
-test.flyToBox()
+data = test.scanQRCode()
+
+print(data)
+
+# test.flyToBox()
