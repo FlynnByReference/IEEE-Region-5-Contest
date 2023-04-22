@@ -15,7 +15,8 @@ class DroneClass:
         print(maverick.get_battery())
         maverick.streamon()
         maverick.takeoff()
-        maverick.move_down(30)
+        while (not maverick.is_flying):
+            pass
 
         # Video define and captrue
         detector = cv2.QRCodeDetector()
@@ -23,34 +24,40 @@ class DroneClass:
         QRdata = "A"
 
         count = 1
+        try:
+            while True:
+                # Get frame by frame from drone
+                img = maverick.get_frame_read().frame
 
-        while True:
-            # Get frame by frame from drone
-            img = maverick.get_frame_read().frame
+                # Instantiate the image transformer class
+                if img is not None:
 
-            # Instantiate the image transformer class
-            it = ImageTransformer(img)
-            rotated_img = it.rotate_along_axis(theta=60)
-            rotated_img = cv2.resize(rotated_img, (360, 1000))
+                    it = ImageTransformer(img)
+                    rotated_img = it.rotate_along_axis(theta=60)
+                    rotated_img = cv2.resize(rotated_img, (360, 1000))
 
-            # Get QR code data
-            data, bbox, straight_qrcode = detector.detectAndDecode(rotated_img)
-            if len(data) > 0:
-                print(data)
-                QRdata = data
-                # maverick.move_forward(80)
+                    # Get QR code data
+                    data, bbox, straight_qrcode = detector.detectAndDecode(rotated_img)
+                    if len(data) > 0:
+                        print(data)
+                        QRdata = data
+                        break
+                        # maverick.move_forward(80)
 
-            # Display in video feed
-            cv2.imshow("results", rotated_img)
-            cv2.waitKey(1)
+                    # Display in video feed
+                    cv2.imshow("results", rotated_img)
+                    cv2.waitKey(1)
 
-            # Quit the program using 'q'
-            if cv2.waitKey(1) & 0xFF == ord('q') or count == 100:
-                break
+                    # Quit the program using 'q'
+                    if cv2.waitKey(1) & 0xFF == ord('q') or count == 100:
+                        break
 
-            count = count + 1
+                    count = count + 1
+        except:
+            print("oops")
 
-        maverick.land()
+        if (maverick.is_flying):
+            maverick.land()
 
         # Close video recording after done
         cv2.destroyAllWindows()
