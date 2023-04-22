@@ -6,6 +6,8 @@ import tensorflow
 import odrive
 import time
 
+rotationCounter = 0
+resetRotation = False
 
 def driveForward(val, duration):
     odrv0.axis0.controller.input_vel = val
@@ -38,9 +40,10 @@ def rotateRight(val, duration):
 def rotateDegrees(degrees, direction):
     timeVal = (0.5)*degrees/104.2
     if direction == "L":
-        rotateLeft(20, timeVal)
+        rotateLeft(30, timeVal)
+        print("Rotating LEFT")
     else:
-        rotateRight(20, timeVal)
+        rotateRight(30, timeVal)
 
 ################ Pre-made code from Training #####################
 # Disable scientific notation for clarity
@@ -107,7 +110,7 @@ while True:
     # Break when looking at box
     if stopRotating:
 
-        while dist > 1.0:
+        while dist > 1.0 or dist < 0.5:
             frames = pipeline.wait_for_frames()
             color_frame = frames.get_color_frame()
 
@@ -142,17 +145,29 @@ while True:
         break
         
     # If looking at not box rotate 15 degrees
-    if str(class_name[2:]) != "Box\n":
-        if np.round(confidence_score * 100) >= 70:
+    if str(class_name[2:]) != "Box\n" or dist > 2 and rotationCounter < 10:
+        if np.round(confidence_score * 100) >= 50:
             # Print what drone is doing
-            rotateDegrees(20, "L")
+            rotationCounter = rotationCounter + 1
+            rotateDegrees(25, "L")
+            time.sleep(0.5)
+            
+            pass
+
+    elif str(class_name[2:]) != "Box\n" or dist > 2:
+        if resetRotation == False:
+            rotateDegrees(150, "R")
+            resetRotation = True
+        if np.round(confidence_score * 100) >= 50:
+            # Print what drone is doing
+            rotateDegrees(25, "R")
             time.sleep(0.5)
             
             pass
 
     # Stop rotating when box is found
-    elif str(class_name[2:]) == "Box\n":
-        if np.round(confidence_score * 100) >= 70:
+    elif str(class_name[2:]) == "Box\n" and dist < 2 and dist > 0.1:
+        if np.round(confidence_score * 100) >= 60:
             driveForward(20, 5)
             stopRotating = True
             print("At box")
