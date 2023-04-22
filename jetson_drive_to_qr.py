@@ -20,7 +20,7 @@ foundQR = False
 #odrv0 = odrive.find_any()
 # Video define and captrue
 detector = cv2.QRCodeDetector()
-camera = nano.Camera(flip=0, width=480, height=360, fps=5)
+camera = nano.Camera(flip=0, width=1280, height=720, fps=30)
 
 
 odrv0.axis0.controller.input_vel = 20
