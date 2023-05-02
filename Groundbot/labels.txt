@@ -1,3 +1,0 @@
-0 Neutral
-1 Box
-2 Drone
