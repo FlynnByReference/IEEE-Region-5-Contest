@@ -15,6 +15,17 @@ University of Arkansas team for IEEE Region 5 robotics competition working code
 4. 2 motors
 5. 2x2 omni wheels
 
+**Tools:**
+- Nvidia Jetpack 4.6.1
+- OpenCV
+- Tensorflow
+- djitellopy
+- numpy
+- pyrealsense2
+- odrive
+- time
+- nanocamera
+
 ## IEEE Region 5 Robotics Competition 2023
 Detailed rules for the competition can be found at `Rules_for_2023_R5_Student_Robotics_V5.pdf`
 
