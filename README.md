@@ -3,6 +3,8 @@ University of Arkansas team for IEEE Region 5 robotics competition working code
 
 Object Detection usage: https://github.com/Surya-Murali/Real-Time-Object-Detection-With-OpenCV/blob/master/real_time_object_detection.py
 
+Image Rotation Tool: https://github.com/eborboihuc/rotate_3d
+
 Robot built in colaboration with the University of Arkansas' Robotics Interdisciplinary Organization of Teams: https://hogsync.uark.edu/organization/riot
 
 **Drone:** 
@@ -23,10 +25,18 @@ The goal of the competition is to build a robot that communicates with a drone a
 The competition was held in Denver, Colorado in April 2023 for 16 teams from across the middle United States.
 
 ## Preparation
-Make sure the drone is turned on and connect the Nvidia Jetson Nano to the Tello's wifi network. It will not have any internet connection, so keep that in mind.
+1. Turn on the Tello drone.
+2. Connect the Nvidia Jetson Nano to the Tello's wifi network (Keep in mind that the Jetson Nano will not be connected to the internet).
+3. Turn on the safety switch.
+4. Plug the Jetson into the monitor and keyboard.
+5. Sign-into the Jetson using the known password.
+6. Launch the terminal from the desktop shortcut.
+7. Navigate to the Project directory `IEE-Region-5-Contest`
+8. Type `python3 FSM.py` into the terminal.
+9. Remove the monitor and set the bot in the area before the count down is finished.
 
 ## Usage
-Run FSM.py to run the Finite State Machine for robot logic, it will automatically send commands to the drone.
+`FSM.py` will run the Finite State Machine for robot logic, it will automatically send commands to the drone so long as the drone is on and connected to the Jetson Nano.
 
 ## Testing
 The Test folder is full of tests to experiment with and make sure the hardware is working as expected.
