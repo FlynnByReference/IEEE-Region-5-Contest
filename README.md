@@ -8,8 +8,12 @@ Object Detection usage: https://github.com/Surya-Murali/Real-Time-Object-Detecti
 
 **Robot:**
 [Intel Realsense stereo camera] (https://www.intelrealsense.com/depth-camera-d415/)
+
 [Nvidia Jetson Nano] (https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-nano/)
+
 Pycamera
+
 2 motors
+
 2x2 omni wheels
 
