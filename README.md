@@ -1,11 +1,11 @@
 # IEEE-Region-5-Contest
 University of Arkansas team for IEEE Region 5 robotics competition working code
 
-Object Detection usage: https://github.com/Surya-Murali/Real-Time-Object-Detection-With-OpenCV/blob/master/real_time_object_detection.py
+**Object Detection usage:** https://github.com/Surya-Murali/Real-Time-Object-Detection-With-OpenCV/blob/master/real_time_object_detection.py
 
-Image Rotation Tool: https://github.com/eborboihuc/rotate_3d
+**Image Rotation Tool:** https://github.com/eborboihuc/rotate_3d
 
-Robot built in colaboration with the University of Arkansas' Robotics Interdisciplinary Organization of Teams: https://hogsync.uark.edu/organization/riot
+**Robot built in colaboration with the University of Arkansas' Robotics Interdisciplinary Organization of Teams:** https://hogsync.uark.edu/organization/riot
 
 **Drone:** 
 [Ryze DJI Tello] (https://www.ryzerobotics.com/tello)
@@ -18,7 +18,7 @@ Robot built in colaboration with the University of Arkansas' Robotics Interdisci
 5. 2x2 omni wheels
 
 ## IEEE Region 5 Robotics Competition 2023
-Detailed rules for the competition can be found at Rules_for_2023_R5_Student_Robotics_V5.pdf.
+Detailed rules for the competition can be found at `Rules_for_2023_R5_Student_Robotics_V5.pdf`
 
 The goal of the competition is to build a robot that communicates with a drone and work together to navigate a course of boxes in a particular order. The drone must be able to scan QR codes attatched to the tops of boxes indicating which box it is looking at, and the robot must be able to scan QR codes attatched to the inside of the box to indicate the next box to navigate to.
 
