@@ -9,11 +9,15 @@ University of Arkansas team for IEEE Region 5 robotics competition working code
 [Ryze DJI Tello] (https://www.ryzerobotics.com/tello)
 
 **Robot:**
-1. [Intel Realsense stereo camera] (https://www.intelrealsense.com/depth-camera-d415/)
+1. [Intel Realsense D415 stereo camera] (https://www.intelrealsense.com/depth-camera-d415/)
 2. [Nvidia Jetson Nano] (https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-nano/)
-3. Pycamera
+3. [Pi Camera module V2] (https://www.raspberrypi.com/products/camera-module-v2/)
 4. 2 motors
 5. 2x2 omni wheels
+6. 20 x 20 cm landing pad
+7. Master on/off switch
+8. Encoders
+
 
 **Tools:**
 - Nvidia Jetpack 4.6.1
